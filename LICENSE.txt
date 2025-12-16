@@ -1,0 +1,32 @@
+# LICENÇA DE USO DE SOFTWARE E CONTEÚDO
+
+Copyright (c) 2025 **IEFE - Instituto de Evolução Funcional Educacional Ltda**.
+
+Todos os direitos reservados.
+
+Este repositório, incluindo seu código-fonte, design, ativos visuais (imagens, vídeos, logotipos) e textos, é propriedade intelectual exclusiva do **IEFE**.
+
+A reprodução, distribuição, modificação, exibição pública ou uso deste software, no todo ou em parte, para fins comerciais ou não comerciais, **NÃO É PERMITIDA** sem a autorização prévia, expressa e por escrito do detentor dos direitos autorais.
+
+---
+
+### Termos e Condições
+
+1.  **Uso Restrito**: Este código-fonte destina-se exclusivamente à operação, manutenção e implantação da página promocional da campanha "Ação Recesso / Oportunidade Final Magistério".
+    
+2.  **Propriedade Intelectual**:
+    * O código HTML, CSS e JavaScript desenvolvido especificamente para esta interface é protegido por leis de direitos autorais.
+    * A marca "IEFE", logotipos e identidade visual são marcas registradas ou de uso exclusivo da instituição.
+
+3.  **Vedações**: É estritamente proibido:
+    * Realizar engenharia reversa, descompilação ou desmontagem do software.
+    * Copiar, clonar ou replicar a interface ("Look and Feel") para uso em outros projetos, concorrentes ou não.
+    * Remover ou alterar quaisquer avisos de direitos autorais ou marcas registradas.
+
+---
+
+### Isenção de Garantia
+
+ESTE SOFTWARE É FORNECIDO "NO ESTADO EM QUE SE ENCONTRA", SEM GARANTIAS DE QUALQUER TIPO, EXPRESSAS OU IMPLÍCITAS, INCLUINDO, MAS NÃO SE LIMITANDO A, GARANTIAS DE COMERCIABILIDADE OU ADEQUAÇÃO A UM DETERMINADO FIM.
+
+EM NENHUMA HIPÓTESE O DETENTOR DOS DIREITOS AUTORAIS SERÁ RESPONSÁVEL POR QUAISQUER DANOS, RECLAMAÇÕES OU OUTRAS RESPONSABILIDADES, SEJA EM UMA AÇÃO DE CONTRATO, ATO ILÍCITO OU DE OUTRA FORMA, DECORRENTES DE, OU EM CONEXÃO COM O SOFTWARE OU O USO OU OUTRAS NEGOCIAÇÕES NO SOFTWARE.

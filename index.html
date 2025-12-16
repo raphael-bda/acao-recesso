@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IEFE - OPORTUNIDADE FINAL MAGISTÉRIO</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -55,7 +56,6 @@
             -webkit-font-smoothing: antialiased;
         }
         
-        /* Otimização de renderização da textura */
         .noise-bg {
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
         }
@@ -67,7 +67,6 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
-            /* Força aceleração de GPU para evitar lag no hover */
             will-change: transform, box-shadow, border-color;
             transform: translateZ(0);
         }
@@ -109,7 +108,6 @@
                 #333 10px,
                 #333 20px
             );
-            /* Otimização para background estático */
             will-change: transform;
         }
 
@@ -128,7 +126,7 @@
             -webkit-backdrop-filter: blur(8px);
         }
         
-        /* Custom Scrollbar for Modal */
+        /* Custom Scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
         }
@@ -162,7 +160,7 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
 
-                <img src="logo.png" alt="Logo IEFE" class="h-6 md:h-10 w-auto brightness-200 contrast-100 shrink-0" width="150" height="40">
+                <img src="assets/img/logo.png" alt="Logo IEFE" class="h-6 md:h-10 w-auto brightness-200 contrast-100 shrink-0" width="150" height="40">
                 
                 <div class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-widest text-gray-400">
                     <a href="#comparativo" class="hover:text-brand transition-colors duration-200">Nova Lei</a>
@@ -252,8 +250,8 @@
                 <div class="w-full lg:w-1/2">
                     <div class="smart-video-container group relative mx-auto">
                         <div class="absolute -inset-1 bg-gradient-to-br from-brand via-transparent to-danger rounded-2xl opacity-20 group-hover:opacity-40 blur transition duration-500 -z-10"></div>
-                        <video controls preload="metadata" class="shadow-2xl max-h-[50vh] md:max-h-[70vh] w-full object-contain" poster="poster-campanha.jpg">
-                            <source src="video-campanha.mp4" type="video/mp4">
+                        <video controls preload="metadata" class="shadow-2xl max-h-[50vh] md:max-h-[70vh] w-full object-contain" poster="assets/img/poster-campanha.jpg">
+                            <source src="assets/video/video-campanha.mp4" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -440,10 +438,10 @@
                     
                     <div class="flex-1 grid grid-cols-2 gap-4 w-full">
                         <div class="bg-white p-2 rounded-xl shadow-lg transform rotate-[-3deg] hover:rotate-0 transition duration-300">
-                             <img src="reclame-aqui-2024.jpg" loading="lazy" alt="Prêmio Reclame Aqui 2024" class="w-full h-auto rounded-lg object-cover">
+                             <img src="assets/img/reclame-aqui-2024.jpg" loading="lazy" alt="Prêmio Reclame Aqui 2024" class="w-full h-auto rounded-lg object-cover">
                         </div>
                         <div class="bg-white p-2 rounded-xl shadow-lg transform rotate-[3deg] hover:rotate-0 transition duration-300 relative z-10">
-                             <img src="reclame-aqui-2025.jpg" loading="lazy" alt="Prêmio Reclame Aqui 2025" class="w-full h-auto rounded-lg object-cover">
+                             <img src="assets/img/reclame-aqui-2025.jpg" loading="lazy" alt="Prêmio Reclame Aqui 2025" class="w-full h-auto rounded-lg object-cover">
                         </div>
                     </div>
                 </div>
@@ -688,7 +686,6 @@
                     mobileMenu.classList.toggle('flex');
                 };
                 
-                // Expose to window for inline onclicks in HTML
                 window.toggleMenu = toggleMenu; 
                 mobileMenuBtn.addEventListener('click', toggleMenu);
             }
@@ -711,7 +708,6 @@
                     return;
                 }
 
-                // Cálculo otimizado sem repetição de Math.floor
                 const days = Math.floor(distance / DAY);
                 const hours = Math.floor((distance % DAY) / HOUR);
                 const minutes = Math.floor((distance % HOUR) / MINUTE);
@@ -724,7 +720,7 @@
             };
 
             const timerInterval = setInterval(updateTimer, 1000);
-            updateTimer(); // Chama imediatamente para evitar delay visual
+            updateTimer();
 
             /* --- BARRA DE PROGRESSO DINÂMICA --- */
             const updateProgressBar = () => {
@@ -737,7 +733,6 @@
                 const totalDuration = endDate - startDate;
                 const timeElapsed = today - startDate;
                 
-                // Math.max/min para garantir limites sem if/else excessivos
                 let relativeProgress = Math.min(Math.max(timeElapsed / totalDuration, 0), 1);
 
                 const startPct = 94;
@@ -755,14 +750,12 @@
                     progressBar.classList.add('bg-red-600');
                 }
             };
-            // Executa apenas uma vez já que é baseado em data, não precisa de loop contínuo
             updateProgressBar();
 
             /* --- MODAL CONTROLS --- */
             window.openModal = function() {
                 if(!modal) return;
                 modal.classList.remove('hidden');
-                // requestAnimationFrame garante que o browser pinte o frame antes de mudar a opacidade
                 requestAnimationFrame(() => {
                     modal.classList.remove('opacity-0');
                 });
