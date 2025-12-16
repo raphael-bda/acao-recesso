@@ -8,7 +8,7 @@
 
 ## 🖼️ Preview do Projeto
 
-![Preview da Landing Page](https://imgur.com/a/THn05zm)
+![Preview da Landing Page](https://imgur.com/AocgiFB)
 
 ---
 
