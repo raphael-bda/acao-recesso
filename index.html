@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEFE - OPORTUNIDADE FINAL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#4ade80',
+                            DEFAULT: '#00bfa5',
+                            dark: '#0f766e',
+                            glow: 'rgba(0, 191, 165, 0.5)'
+                        },
+                        danger: {
+                            DEFAULT: '#ef4444',
+                            dark: '#7f1d1d'
+                        },
+                        dark: {
+                            bg: '#050505',
+                            surface: '#0f0f0f',
+                            card: '#141414',
+                            border: '#262626'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glitch': 'glitch 1s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #050505; 
+            color: #e5e5e5; 
+            overflow-x: hidden;
+        }
+        
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        .tech-card {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .tech-card:hover {
+            border-color: rgba(0, 191, 165, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 191, 165, 0.1);
+        }
+
+        .neon-text { text-shadow: 0 0 20px rgba(0, 191, 165, 0.6); }
+        .danger-text { text-shadow: 0 0 20px rgba(239, 68, 68, 0.6); }
+
+        .smart-video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.8);
+            width: fit-content;
+            margin: 0 auto;
+        }
+        .smart-video-container video {
+            max-width: 100%;
+            max-height: 70vh; 
+            width: auto;
+            height: auto;
+            display: block;
+        }
+        
+        /* Faixa de Alerta */
+        .warning-stripe {
+            background: repeating-linear-gradient(
+                45deg,
+                #000,
+                #000 10px,
+                #333 10px,
+                #333 20px
+            );
+        }
+
+        .accordion-content { transition: max-height 0.3s ease-out, padding 0.3s ease; max-height: 0; overflow: hidden; }
+        input:checked ~ .accordion-content { max-height: 300px; padding-top: 1rem; }
+        input:checked ~ label .arrow { transform: rotate(180deg); }
+    </style>
+</head>
+<body class="antialiased noise-bg">
+
+    <div class="bg-danger text-white text-[10px] md:text-xs font-bold py-2 text-center uppercase tracking-widest flex justify-center items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        RESOLUÇÃO CNE/CP Nº 4/2024: O PRAZO ESTÁ SE ESGOTANDO
+    </div>
+
+    <nav class="w-full py-4 bg-black/90 backdrop-blur-md border-b border-white/5 sticky top-0 z-50">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <img src="logo.png" alt="Logo IEFE" class="h-8 md:h-10 w-auto brightness-200 contrast-100">
+            
+            <a href="https://emec.mec.gov.br/emec/consulta-cadastro/detalhes-ies/d96957f455f6405d14c6542552b0f6eb/MTI1MjI=" target="_blank" class="flex items-center gap-2 text-[10px] md:text-xs font-bold text-black bg-brand hover:bg-white px-4 py-2 rounded uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(0,191,165,0.3)] hover:shadow-[0_0_25px_rgba(0,191,165,0.6)]">
+                <span class="w-2 h-2 bg-black rounded-full animate-pulse"></span>
+                Consulta E-MEC
+            </a>
+        </div>
+    </nav>
+
+    <header class="pt-16 pb-20 px-4 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-brand opacity-10 blur-[120px] rounded-full pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+
+        <div class="container mx-auto max-w-7xl relative z-10">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                
+                <div class="w-full lg:w-1/2 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded border border-danger/50 bg-danger/10 text-danger text-xs font-mono font-bold uppercase tracking-widest animate-pulse-fast">
+                        ⚠️ Última turma no modelo antigo
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-[1.0] tracking-tight text-white">
+                        O DECRETO DO MEC <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-danger to-orange-500 danger-text">MUDOU A REGRA.</span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-300 mb-8 leading-relaxed font-light border-l-4 border-brand pl-6 mx-auto lg:mx-0 max-w-xl text-left bg-white/5 p-4 rounded-r-lg">
+                        <strong class="text-white block mb-2">Atenção, Professor:</strong> A nova resolução exige <span class="text-danger font-bold">4 anos de curso</span> e <span class="text-danger font-bold">presencialidade obrigatória</span>. <br><br>
+                        Nós conseguimos travar o sistema. Você tem uma janela de oportunidade para se formar em <b>meses</b>, 100% online, antes que a porta se feche para sempre.
+                    </p>
+
+                    <div class="bg-dark-card p-5 rounded-xl border border-white/10 max-w-md mx-auto lg:mx-0 mb-10 shadow-lg relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-brand/5 group-hover:bg-brand/10 transition"></div>
+                        <div class="flex justify-between text-xs font-bold text-gray-400 mb-2 uppercase relative z-10">
+                            <span>Vagas "Decreto Antigo"</span>
+                            <span class="text-red-400 font-mono">94% Ocupado</span>
+                        </div>
+                        <div class="w-full h-3 bg-black rounded-full overflow-hidden border border-white/5 relative z-10">
+                            <div class="h-full bg-gradient-to-r from-brand-dark via-brand to-red-600 w-[94%] shadow-[0_0_15px_rgba(239,68,68,0.6)] relative"></div>
+                        </div>
+                    </div>
+
+                    <a href="#cta-section" class="inline-flex w-full md:w-auto items-center justify-center bg-brand hover:bg-white text-black font-black text-lg py-5 px-10 rounded shadow-[0_0_40px_rgba(0,191,165,0.3)] hover:shadow-[0_0_60px_rgba(0,191,165,0.6)] transition-all duration-300 transform hover:-translate-y-1">
+                        GARANTIR MINHA VAGA AGORA
+                    </a>
+                </div>
+
+                <div class="w-full lg:w-1/2">
+                    <div class="smart-video-container group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-brand via-transparent to-danger rounded-2xl opacity-20 group-hover:opacity-40 blur transition duration-500 -z-10"></div>
+                        <video controls class="shadow-2xl" poster="poster-campanha.jpg">
+                            <source src="video-campanha.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <section class="py-20 relative border-y border-white/10 bg-dark-surface">
+        <div class="absolute inset-0 warning-stripe opacity-5 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 max-w-6xl relative z-10">
+            <h2 class="text-3xl md:text-5xl font-black text-center mb-4 text-white">O Fim da <span class="text-danger line-through decoration-4">Facilidade</span></h2>
+            <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Compare o que você garante entrando <b>HOJE</b> vs. o que te espera se você deixar para <b>AMANHÃ</b>.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="bg-brand-dark/10 border border-brand/50 p-8 rounded-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-brand text-black text-xs font-bold px-3 py-1 uppercase">Última Chance</div>
+                    <h3 class="text-2xl font-black text-brand mb-6">HOJE (IEFE)</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-gray-200">
+                            <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Formação em <b>6 a 12 meses</b></span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-200">
+                            <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span><b>100% Online</b> (Estude em casa)</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-200">
+                            <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Valor Promocional <b>Acessível</b></span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-200">
+                            <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>Aproveitamento de Competência (LDB)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-danger/5 border border-danger/30 p-8 rounded-2xl relative overflow-hidden opacity-80 hover:opacity-100 transition">
+                    <div class="absolute top-0 right-0 bg-danger/20 text-danger text-xs font-bold px-3 py-1 uppercase">Nova Lei MEC</div>
+                    <h3 class="text-2xl font-black text-danger mb-6">AMANHÃ (NOVA REGRA)</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 text-gray-400">
+                            <svg class="w-6 h-6 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <span>Duração mínima de <b>4 Anos</b></span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-400">
+                            <svg class="w-6 h-6 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <span><b>50% Presencial Obrigatório</b> (Diário)</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-400">
+                            <svg class="w-6 h-6 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <span>Mensalidades <b>3x a 5x mais caras</b></span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-400">
+                            <svg class="w-6 h-6 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            <span>Grade Curricular Extensa e Rígida</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div class="mt-12 text-center">
+                 <p class="text-sm font-mono text-gray-500 mb-4">O SISTEMA VAI RESETAR. NÃO DIGA QUE NÃO AVISAMOS.</p>
+                 <a href="#cta-section" class="inline-block bg-white text-black font-black px-8 py-4 rounded hover:bg-gray-200 transition">FUGIR DA NOVA REGRA AGORA</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-dark-bg relative">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-16">
+                <span class="text-brand font-bold tracking-[0.3em] uppercase text-xs">Transparência Total</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white mt-2">Segurança Jurídica</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="tech-card p-8 rounded-2xl group cursor-default">
+                    <div class="w-12 h-12 bg-brand/10 rounded-lg flex items-center justify-center mb-6 text-brand border border-brand/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Diploma Válido em Todo Território</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Seu certificado tem o selo do MEC e validade nacional. Ele conta para concursos públicos, progressão de carreira e atuação em sala de aula, exatamente como um curso presencial.
+                    </p>
+                    <a href="https://emec.mec.gov.br/emec/consulta-cadastro/detalhes-ies/d96957f455f6405d14c6542552b0f6eb/MTI1MjI=" target="_blank" class="text-brand text-xs font-bold uppercase tracking-wider hover:underline flex items-center gap-1">
+                        Ver no Portal E-MEC <span class="text-lg">↗</span>
+                    </a>
+                </div>
+
+                <div class="tech-card p-8 rounded-2xl group cursor-default">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-lg flex items-center justify-center mb-6 text-blue-400 border border-blue-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Lei de Diretrizes e Bases</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Não fazemos "jeitinho". Utilizamos o <b>Aproveitamento de Estudos</b> previsto na LDB (Lei 9.394/96). Validamos sua experiência anterior e eliminamos matérias repetidas. É legal, é rápido e é inteligente.
+                    </p>
+                </div>
+
+                <div class="tech-card p-8 rounded-2xl group cursor-default md:col-span-2 flex flex-col md:flex-row items-center gap-8 border-l-4 border-l-brand">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-4">
+                            <span class="text-yellow-400 text-2xl">★★★★★</span>
+                            <h3 class="text-xl font-bold text-white">Instituição Sólida e Blindada</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                            Não somos uma página de internet. Somos o <b>Instituto de Evolução Funcional Educacional</b>, com CNPJ ativo, sede física em São Paulo e milhares de alunos formados. Temos nota <b>4.9 no Google</b> e selo <b>Ótimo no Reclame Aqui</b>. Sua carreira está em mãos seguras.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="https://www.reclameaqui.com.br/empresa/iefe-evolucao-educacional/" target="_blank" class="px-4 py-2 bg-white/5 border border-white/10 rounded text-xs font-bold text-white hover:bg-white/10 transition">Conferir Reclame Aqui</a>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 bg-black/50 p-6 rounded-xl border border-white/5 text-center shadow-inner">
+                         <div class="text-5xl font-black text-brand mb-1 tracking-tighter">4.9</div>
+                         <div class="text-[10px] text-gray-500 uppercase tracking-widest">Excelência Comprovada</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-black relative">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="flex flex-col md:flex-row items-end justify-between mb-12">
+                <div>
+                    <h2 class="text-3xl md:text-5xl font-black text-white">Isso não é um site. <br><span class="text-gray-500">É uma Faculdade Real.</span></h2>
+                </div>
+                <p class="text-gray-400 text-sm max-w-sm text-right mt-4 md:mt-0">
+                    Sede própria, equipe pedagógica e café quente. <br>Veja onde sua matrícula é processada.
+                </p>
+            </div>
+
+            <div class="smart-video-container w-full">
+                <video controls poster="poster-polo.jpg">
+                    <source src="apresentacao-polo.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-dark-card border-t border-white/5">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <h2 class="text-center text-3xl font-bold mb-16 text-white">Quem aproveitou a <span class="text-brand decoration-wavy underline decoration-brand">chance</span></h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                
+                <div class="space-y-6">
+                    <div class="bg-dark-surface p-6 rounded-xl border border-white/5 hover:border-brand/30 transition">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center font-bold text-white">C</div>
+                            <div>
+                                <p class="font-bold text-white text-sm">Cleide Antonia</p>
+                                <span class="text-yellow-500 text-xs">★★★★★ Aluna Verificada</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm italic">"Obrigada IEFE! Valeu muito a pena. Vocês são brilhantes. Agora sim... Posso ser Professora! Valeu!"</p>
+                    </div>
+                    <div class="bg-dark-surface p-6 rounded-xl border border-white/5 hover:border-brand/30 transition">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-pink-600 rounded-full flex items-center justify-center font-bold text-white">S</div>
+                            <div>
+                                <p class="font-bold text-white text-sm">Sheila Aparecida</p>
+                                <span class="text-yellow-500 text-xs">★★★★★ Aluna Verificada</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm italic">"Gostei muito das aulas!! Bem didáticas!! Professores maravilhosos!! ❤️❤️"</p>
+                    </div>
+                     <div class="bg-dark-surface p-6 rounded-xl border border-white/5 hover:border-brand/30 transition">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold text-white">P</div>
+                            <div>
+                                <p class="font-bold text-white text-sm">Paula Luciano</p>
+                                <span class="text-yellow-500 text-xs">★★★★★ Aluna Verificada</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm italic">"Consegui conquistar meu Sonho!!! Enfim Pedagoga!!! ❤️"</p>
+                    </div>
+                </div>
+
+                <div class="sticky top-24">
+                    <div class="smart-video-container">
+                        <video controls>
+                            <source src="video-depoimentos.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="text-center text-xs text-gray-500 mt-4 uppercase tracking-widest">Alunas reais. Resultados reais.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-dark-bg">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-2xl font-bold mb-8 text-center text-white">Perguntas Cruciais</h2>
+            
+            <div class="space-y-4">
+                <div class="border border-white/10 rounded-lg bg-dark-surface overflow-hidden">
+                    <input type="checkbox" id="faq1" class="hidden peer">
+                    <label for="faq1" class="flex justify-between items-center p-5 cursor-pointer hover:bg-white/5 transition">
+                        <span class="font-bold text-white">Por que o MEC está mudando a regra?</span>
+                        <svg class="arrow w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </label>
+                    <div class="accordion-content px-5 bg-black/20 text-gray-400 text-sm">
+                        <p class="pb-5">O Conselho Nacional de Educação (CNE) aprovou a Resolução nº 4, que define novas Diretrizes Curriculares Nacionais. O objetivo é tornar a formação mais longa e presencial. Por isso, esta é a última chance de aproveitar o modelo ágil.</p>
+                    </div>
+                </div>
+                <div class="border border-white/10 rounded-lg bg-dark-surface overflow-hidden">
+                    <input type="checkbox" id="faq2" class="hidden peer">
+                    <label for="faq2" class="flex justify-between items-center p-5 cursor-pointer hover:bg-white/5 transition">
+                        <span class="font-bold text-white">Se eu entrar agora, sou afetado depois?</span>
+                        <svg class="arrow w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </label>
+                    <div class="accordion-content px-5 bg-black/20 text-gray-400 text-sm">
+                        <p class="pb-5">NÃO. Quem se matricula antes da vigência total da nova regra tem "Direito Adquirido". Você se forma no modelo atual (rápido e online) e seu diploma vale para sempre, independente das mudanças futuras.</p>
+                    </div>
+                </div>
+                <div class="border border-white/10 rounded-lg bg-dark-surface overflow-hidden">
+                    <input type="checkbox" id="faq3" class="hidden peer">
+                    <label for="faq3" class="flex justify-between items-center p-5 cursor-pointer hover:bg-white/5 transition">
+                        <span class="font-bold text-white">Preciso ir até o polo fazer prova?</span>
+                        <svg class="arrow w-5 h-5 text-gray-500 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </label>
+                    <div class="accordion-content px-5 bg-black/20 text-gray-400 text-sm">
+                        <p class="pb-5">No modelo atual, a flexibilidade é total. Você estuda pelo portal online. Essa é uma das vantagens que vão acabar com o novo decreto.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta-section" class="py-24 bg-black relative overflow-hidden flex items-center justify-center">
+        <div class="absolute bottom-0 w-full h-1/2 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+        
+        <div class="container mx-auto px-4 relative z-10 max-w-4xl text-center">
+            
+            <div id="offer-active" class="transition-all duration-500">
+                <div class="inline-block px-4 py-1 rounded-full border border-danger/50 bg-danger/10 text-danger text-xs font-bold uppercase tracking-widest mb-6 animate-pulse">
+                    ⚠️ O sistema vai fechar
+                </div>
+                
+                <h2 class="text-5xl md:text-7xl font-black mb-6 text-white tracking-tighter">
+                    NÃO DEIXE O MEC <br>TRANCAR SEU FUTURO.
+                </h2>
+                
+                <p class="text-gray-400 text-lg mb-10 max-w-xl mx-auto">
+                    Garanta sua vaga com as <b>regras antigas</b> antes que a atualização do sistema bloqueie novas matrículas.
+                </p>
+
+                <div class="flex justify-center gap-4 mb-12">
+                    <div class="bg-dark-surface border border-white/10 p-4 rounded-xl min-w-[100px]">
+                        <span id="minutes" class="block text-5xl font-mono font-bold text-white">15</span>
+                        <span class="text-[10px] uppercase text-gray-500">Min</span>
+                    </div>
+                    <span class="text-4xl text-brand self-center">:</span>
+                    <div class="bg-dark-surface border border-white/10 p-4 rounded-xl min-w-[100px]">
+                        <span id="seconds" class="block text-5xl font-mono font-bold text-brand shadow-brand/20 drop-shadow-lg">00</span>
+                        <span class="text-[10px] uppercase text-gray-500">Seg</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col items-center gap-6">
+                    <a href="SEU_LINK_ASAAS" class="w-full md:w-auto bg-brand hover:bg-white text-black font-black text-2xl py-6 px-20 rounded shadow-[0_0_50px_rgba(0,191,165,0.4)] hover:shadow-[0_0_80px_rgba(255,255,255,0.6)] transition-all duration-300 transform hover:scale-105 border-b-4 border-brand-dark hover:border-b-0">
+                        QUERO MINHA VAGA AGORA
+                    </a>
+                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path></svg>
+                        Ambiente Criptografado Asaas
+                    </div>
+                </div>
+            </div>
+
+            <div id="offer-expired" class="hidden opacity-0 scale-95 transition-all duration-500 bg-dark-card border border-red-900/50 p-10 rounded-3xl max-w-lg mx-auto">
+                <h2 class="text-3xl font-bold mb-2 text-white">Inscrições Encerradas.</h2>
+                <p class="text-gray-400 mb-6">Entre na lista de espera para ser avisado se alguma vaga for liberada.</p>
+                <form onsubmit="event.preventDefault(); alert('Cadastrado na Lista de Prioridade!');" class="space-y-3">
+                    <input type="text" placeholder="Seu Nome Completo" class="w-full bg-black border border-white/10 p-4 rounded text-white focus:border-brand outline-none">
+                    <input type="email" placeholder="Seu Melhor E-mail" class="w-full bg-black border border-white/10 p-4 rounded text-white focus:border-brand outline-none">
+                    <button class="w-full bg-white text-black font-bold py-4 rounded hover:bg-gray-200 transition">ENTRAR NA LISTA</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-black py-12 text-center border-t border-white/5 text-gray-600 text-xs">
+        <div class="container mx-auto px-4 space-y-2">
+            <p class="font-bold text-gray-500">&copy; 2024 IEFE - Instituto de Evolução Funcional Educacional Ltda (Evolução Educacional).</p>
+            <p class="opacity-70 font-mono">CNPJ: 26.071.510/0001-43</p>
+            <p class="opacity-50">São Paulo, SP - Todos os direitos reservados.</p>
+            <div class="pt-4 flex justify-center gap-4 opacity-30 hover:opacity-100 transition">
+                <a href="#" class="hover:text-white">Termos de Uso</a>
+                <a href="#" class="hover:text-white">Política de Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const duration = 15 * 60; 
+        let timer = duration, minutes, seconds;
+        
+        const updateTimer = () => {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            if (--timer < 0) {
+                clearInterval(interval);
+                document.getElementById("offer-active").style.display = "none";
+                const expired = document.getElementById("offer-expired");
+                expired.classList.remove("hidden");
+                setTimeout(() => expired.classList.remove("opacity-0", "scale-95"), 50);
+            }
+        };
+        const interval = setInterval(updateTimer, 1000);
+        updateTimer(); 
+    </script>
+</body>
+</html>
