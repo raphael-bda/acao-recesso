@@ -52,8 +52,10 @@
             background-color: #050505; 
             color: #e5e5e5; 
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
         
+        /* Otimização de renderização da textura */
         .noise-bg {
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
         }
@@ -61,9 +63,13 @@
         .tech-card {
             background: rgba(20, 20, 20, 0.6);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
+            /* Força aceleração de GPU para evitar lag no hover */
+            will-change: transform, box-shadow, border-color;
+            transform: translateZ(0);
         }
         .tech-card:hover {
             border-color: rgba(0, 191, 165, 0.4);
@@ -85,6 +91,7 @@
             box-shadow: 0 20px 50px -10px rgba(0,0,0,0.8);
             width: fit-content;
             margin: 0 auto;
+            transform: translateZ(0);
         }
         .smart-video-container video {
             max-width: 100%;
@@ -102,15 +109,23 @@
                 #333 10px,
                 #333 20px
             );
+            /* Otimização para background estático */
+            will-change: transform;
         }
 
-        .accordion-content { transition: max-height 0.3s ease-out, padding 0.3s ease; max-height: 0; overflow: hidden; }
+        .accordion-content { 
+            transition: max-height 0.3s ease-out, padding 0.3s ease; 
+            max-height: 0; 
+            overflow: hidden; 
+            will-change: max-height;
+        }
         input:checked ~ .accordion-content { max-height: 800px; padding-top: 1rem; } 
         input:checked ~ label .arrow { transform: rotate(180deg); }
 
         /* Modal Styles */
         #payment-modal {
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
         
         /* Custom Scrollbar for Modal */
@@ -139,7 +154,7 @@
         </div>
     </div>
 
-    <nav class="w-full py-3 md:py-4 bg-black/90 backdrop-blur-md border-b border-white/5 sticky top-0 z-40 transition-all">
+    <nav class="w-full py-3 md:py-4 bg-black/90 backdrop-blur-md border-b border-white/5 sticky top-0 z-40 transition-all will-change-transform">
         <div class="container mx-auto px-4 flex justify-between items-center gap-2 relative">
             
             <div class="flex items-center gap-3 md:gap-8">
@@ -147,7 +162,7 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
 
-                <img src="logo.png" alt="Logo IEFE" class="h-6 md:h-10 w-auto brightness-200 contrast-100 shrink-0">
+                <img src="logo.png" alt="Logo IEFE" class="h-6 md:h-10 w-auto brightness-200 contrast-100 shrink-0" width="150" height="40">
                 
                 <div class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-widest text-gray-400">
                     <a href="#comparativo" class="hover:text-brand transition-colors duration-200">Nova Lei</a>
@@ -172,7 +187,7 @@
     </nav>
 
     <header class="pt-8 md:pt-12 pb-12 md:pb-20 px-4 relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-brand opacity-10 blur-[80px] md:blur-[120px] rounded-full pointer-events-none translate-x-1/3 -translate-y-1/3"></div>
+        <div class="absolute top-0 right-0 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-brand opacity-10 blur-[80px] md:blur-[120px] rounded-full pointer-events-none translate-x-1/3 -translate-y-1/3 transform-gpu"></div>
 
         <div class="container mx-auto max-w-7xl relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-12">
@@ -237,7 +252,7 @@
                 <div class="w-full lg:w-1/2">
                     <div class="smart-video-container group relative mx-auto">
                         <div class="absolute -inset-1 bg-gradient-to-br from-brand via-transparent to-danger rounded-2xl opacity-20 group-hover:opacity-40 blur transition duration-500 -z-10"></div>
-                        <video controls class="shadow-2xl max-h-[50vh] md:max-h-[70vh] w-full object-contain" poster="poster-campanha.jpg">
+                        <video controls preload="metadata" class="shadow-2xl max-h-[50vh] md:max-h-[70vh] w-full object-contain" poster="poster-campanha.jpg">
                             <source src="video-campanha.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -254,7 +269,7 @@
             <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto text-sm md:text-base">Compare o que você garante entrando <b>HOJE</b> vs. o que te espera se você deixar para <b>AMANHÃ</b>.</p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-brand-dark/10 border border-brand/50 p-6 md:p-8 rounded-2xl relative overflow-hidden">
+                <div class="bg-brand-dark/10 border border-brand/50 p-6 md:p-8 rounded-2xl relative overflow-hidden tech-card">
                     <div class="absolute top-0 right-0 bg-brand text-black text-[10px] md:text-xs font-bold px-3 py-1 uppercase">Última Chance</div>
                     <h3 class="text-2xl font-black text-brand mb-6">HOJE (IEFE)</h3>
                     <ul class="space-y-4 text-sm md:text-base">
@@ -273,7 +288,7 @@
                     </ul>
                 </div>
 
-                <div class="bg-danger/5 border border-danger/30 p-6 md:p-8 rounded-2xl relative overflow-hidden opacity-80 hover:opacity-100 transition">
+                <div class="bg-danger/5 border border-danger/30 p-6 md:p-8 rounded-2xl relative overflow-hidden opacity-80 hover:opacity-100 transition tech-card">
                     <div class="absolute top-0 right-0 bg-danger/20 text-danger text-[10px] md:text-xs font-bold px-3 py-1 uppercase">Nova Lei MEC</div>
                     <h3 class="text-2xl font-black text-danger mb-6">AMANHÃ (NOVA REGRA)</h3>
                     <ul class="space-y-4 text-sm md:text-base">
@@ -306,7 +321,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 
-                <div class="bg-dark-card border border-white/10 rounded-2xl p-8 hover:border-brand/40 transition duration-300 group">
+                <div class="bg-dark-card border border-white/10 rounded-2xl p-8 hover:border-brand/40 transition duration-300 group tech-card">
                     <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-2xl mb-6 border border-green-500/20 group-hover:bg-green-500/20 transition">🟢</div>
                     <h3 class="text-xl font-black text-white mb-2 uppercase">Pedagogia Magistério</h3>
                     <p class="text-brand text-xs font-bold uppercase tracking-wider mb-6">Formação Essencial</p>
@@ -325,7 +340,7 @@
                     </ul>
                 </div>
 
-                <div class="bg-dark-card border border-blue-500/30 rounded-2xl p-8 hover:border-blue-400 transition duration-300 group relative overflow-hidden">
+                <div class="bg-dark-card border border-blue-500/30 rounded-2xl p-8 hover:border-blue-400 transition duration-300 group relative overflow-hidden tech-card">
                     <div class="absolute top-0 right-0 bg-blue-500 text-black text-[10px] font-bold px-3 py-1 uppercase">Mais Buscado</div>
                     <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-2xl mb-6 border border-blue-500/20 group-hover:bg-blue-500/20 transition">🔵</div>
                     <h3 class="text-xl font-black text-white mb-2 uppercase">Pedagogia + Alfabetização</h3>
@@ -346,7 +361,7 @@
                     </ul>
                 </div>
 
-                <div class="bg-dark-card border border-white/10 rounded-2xl p-8 hover:border-yellow-400/40 transition duration-300 group">
+                <div class="bg-dark-card border border-white/10 rounded-2xl p-8 hover:border-yellow-400/40 transition duration-300 group tech-card">
                     <div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-2xl mb-6 border border-yellow-500/20 group-hover:bg-yellow-500/20 transition">🟡</div>
                     <h3 class="text-xl font-black text-white mb-2 uppercase">Pedagogia + Gestão</h3>
                     <p class="text-yellow-400 text-xs font-bold uppercase tracking-wider mb-6">Liderança Educacional</p>
@@ -425,10 +440,10 @@
                     
                     <div class="flex-1 grid grid-cols-2 gap-4 w-full">
                         <div class="bg-white p-2 rounded-xl shadow-lg transform rotate-[-3deg] hover:rotate-0 transition duration-300">
-                             <img src="reclame-aqui-2024.jpg" alt="Prêmio Reclame Aqui 2024" class="w-full h-auto rounded-lg object-cover">
+                             <img src="reclame-aqui-2024.jpg" loading="lazy" alt="Prêmio Reclame Aqui 2024" class="w-full h-auto rounded-lg object-cover">
                         </div>
                         <div class="bg-white p-2 rounded-xl shadow-lg transform rotate-[3deg] hover:rotate-0 transition duration-300 relative z-10">
-                             <img src="reclame-aqui-2025.jpg" alt="Prêmio Reclame Aqui 2025" class="w-full h-auto rounded-lg object-cover">
+                             <img src="reclame-aqui-2025.jpg" loading="lazy" alt="Prêmio Reclame Aqui 2025" class="w-full h-auto rounded-lg object-cover">
                         </div>
                     </div>
                 </div>
@@ -570,7 +585,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-y-auto md:overflow-visible max-h-[80vh] md:max-h-none pb-20 md:pb-0 px-2 custom-scrollbar">
                 
-                <div class="bg-dark-card border border-white/10 rounded-2xl p-6 flex flex-col text-center hover:border-brand/50 transition duration-300 shadow-xl relative group">
+                <div class="bg-dark-card border border-white/10 rounded-2xl p-6 flex flex-col text-center hover:border-brand/50 transition duration-300 shadow-xl relative group tech-card">
                     <div class="mb-4">
                          <h4 class="text-white font-black text-lg md:text-xl uppercase flex items-center justify-center gap-2">
                             Pedagogia Magistério <span class="text-2xl">🟢</span>
@@ -593,7 +608,7 @@
                     </a>
                 </div>
 
-                <div class="bg-dark-card border-2 border-brand rounded-2xl p-6 flex flex-col text-center transform md:-translate-y-4 shadow-[0_0_30px_rgba(0,191,165,0.15)] relative">
+                <div class="bg-dark-card border-2 border-brand rounded-2xl p-6 flex flex-col text-center transform md:-translate-y-4 shadow-[0_0_30px_rgba(0,191,165,0.15)] relative tech-card">
                     <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand text-black font-bold px-4 py-1 rounded-full text-xs uppercase tracking-widest shadow-lg whitespace-nowrap">
                         Mais Escolhido
                     </div>
@@ -621,7 +636,7 @@
                     </a>
                 </div>
 
-                <div class="bg-dark-card border border-white/10 rounded-2xl p-6 flex flex-col text-center hover:border-yellow-500/50 transition duration-300 shadow-xl group">
+                <div class="bg-dark-card border border-white/10 rounded-2xl p-6 flex flex-col text-center hover:border-yellow-500/50 transition duration-300 shadow-xl group tech-card">
                     <div class="mb-4">
                         <h4 class="text-white font-black text-lg md:text-xl uppercase flex items-center justify-center gap-2">
                             Pedagogia + Gestão <span class="text-2xl">🟡</span>
@@ -653,100 +668,119 @@
     </div>
 
     <script>
-        /* --- MENU MOBILE LOGIC --- */
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+        document.addEventListener('DOMContentLoaded', () => {
+            /* --- CACHED ELEMENTS --- */
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const offerActive = document.getElementById("offer-active");
+            const elDays = document.getElementById("days");
+            const elHours = document.getElementById("hours");
+            const elMinutes = document.getElementById("minutes");
+            const elSeconds = document.getElementById("seconds");
+            const modal = document.getElementById('payment-modal');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
 
-        function toggleMenu() {
-            if (mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-            } else {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('flex');
-            }
-        }
-
-        mobileMenuBtn.addEventListener('click', toggleMenu);
-
-        /* --- TIMER LÓGICA ATÉ 31/12/2025 --- */
-        const countDownDate = new Date("Dec 31, 2025 23:59:59").getTime();
-
-        const updateTimer = () => {
-            const now = new Date().getTime();
-            const distance = countDownDate - now;
-
-            if (distance < 0) {
-                document.getElementById("offer-active").innerHTML = "<h2 class='text-white text-3xl font-bold'>Inscrições Encerradas.</h2><p class='text-gray-400'>Entre em contato para verificar lista de espera.</p>";
-                clearInterval(interval);
-                return;
+            /* --- MENU MOBILE LOGIC --- */
+            if(mobileMenuBtn && mobileMenu) {
+                const toggleMenu = () => {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenu.classList.toggle('flex');
+                };
+                
+                // Expose to window for inline onclicks in HTML
+                window.toggleMenu = toggleMenu; 
+                mobileMenuBtn.addEventListener('click', toggleMenu);
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            /* --- TIMER LÓGICA ATÉ 31/12/2025 --- */
+            const countDownDate = new Date("Dec 31, 2025 23:59:59").getTime();
+            const MINUTE = 1000 * 60;
+            const HOUR = MINUTE * 60;
+            const DAY = HOUR * 24;
 
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-        };
+            const updateTimer = () => {
+                if(!offerActive) return;
+                
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
 
-        const interval = setInterval(updateTimer, 1000);
-        updateTimer();
+                if (distance < 0) {
+                    offerActive.innerHTML = "<h2 class='text-white text-3xl font-bold'>Inscrições Encerradas.</h2><p class='text-gray-400'>Entre em contato para verificar lista de espera.</p>";
+                    if(timerInterval) clearInterval(timerInterval);
+                    return;
+                }
 
-        /* --- BARRA DE PROGRESSO DINÂMICA (94% a 100% até 01/01/2026) --- */
-        function updateProgressBar() {
-            const today = new Date();
-            const endDate = new Date("2026-01-01T00:00:00");
-            const startDate = new Date("2025-12-16T00:00:00"); 
+                // Cálculo otimizado sem repetição de Math.floor
+                const days = Math.floor(distance / DAY);
+                const hours = Math.floor((distance % DAY) / HOUR);
+                const minutes = Math.floor((distance % HOUR) / MINUTE);
+                const seconds = Math.floor((distance % MINUTE) / 1000);
 
-            const totalDuration = endDate - startDate;
-            const timeElapsed = today - startDate;
-            
-            let relativeProgress = timeElapsed / totalDuration;
-            if (relativeProgress > 1) relativeProgress = 1;
-            if (relativeProgress < 0) relativeProgress = 0;
+                if(elDays) elDays.innerText = days < 10 ? "0" + days : days;
+                if(elHours) elHours.innerText = hours < 10 ? "0" + hours : hours;
+                if(elMinutes) elMinutes.innerText = minutes < 10 ? "0" + minutes : minutes;
+                if(elSeconds) elSeconds.innerText = seconds < 10 ? "0" + seconds : seconds;
+            };
 
-            const startPct = 94;
-            const endPct = 100;
-            const currentPct = startPct + (relativeProgress * (endPct - startPct));
-            
-            const finalPct = Math.min(Math.max(currentPct, 94), 100).toFixed(1);
+            const timerInterval = setInterval(updateTimer, 1000);
+            updateTimer(); // Chama imediatamente para evitar delay visual
 
-            document.getElementById('progress-bar').style.width = finalPct + '%';
-            document.getElementById('progress-text').innerText = finalPct + '% Ocupado';
-            
-            if(finalPct >= 99.9) {
-                document.getElementById('progress-text').innerText = "ESGOTADO";
-                document.getElementById('progress-bar').classList.remove('from-brand-dark', 'via-brand');
-                document.getElementById('progress-bar').classList.add('bg-red-600');
+            /* --- BARRA DE PROGRESSO DINÂMICA --- */
+            const updateProgressBar = () => {
+                if(!progressBar || !progressText) return;
+
+                const today = new Date();
+                const endDate = new Date("2026-01-01T00:00:00");
+                const startDate = new Date("2025-12-16T00:00:00"); 
+
+                const totalDuration = endDate - startDate;
+                const timeElapsed = today - startDate;
+                
+                // Math.max/min para garantir limites sem if/else excessivos
+                let relativeProgress = Math.min(Math.max(timeElapsed / totalDuration, 0), 1);
+
+                const startPct = 94;
+                const endPct = 100;
+                const currentPct = startPct + (relativeProgress * (endPct - startPct));
+                
+                const finalPct = Math.min(currentPct, 100).toFixed(1);
+
+                progressBar.style.width = finalPct + '%';
+                progressText.innerText = finalPct + '% Ocupado';
+                
+                if(parseFloat(finalPct) >= 99.9) {
+                    progressText.innerText = "ESGOTADO";
+                    progressBar.classList.remove('from-brand-dark', 'via-brand');
+                    progressBar.classList.add('bg-red-600');
+                }
+            };
+            // Executa apenas uma vez já que é baseado em data, não precisa de loop contínuo
+            updateProgressBar();
+
+            /* --- MODAL CONTROLS --- */
+            window.openModal = function() {
+                if(!modal) return;
+                modal.classList.remove('hidden');
+                // requestAnimationFrame garante que o browser pinte o frame antes de mudar a opacidade
+                requestAnimationFrame(() => {
+                    modal.classList.remove('opacity-0');
+                });
             }
-        }
-        updateProgressBar();
 
-        /* --- MODAL CONTROLS --- */
-        const modal = document.getElementById('payment-modal');
+            window.closeModal = function() {
+                if(!modal) return;
+                modal.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
 
-        function openModal() {
-            modal.classList.remove('hidden');
-            // Pequeno delay para permitir que o navegador renderize o hidden removido antes de mudar a opacidade
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-            }, 10);
-        }
-
-        function closeModal() {
-            modal.classList.add('opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
-        }
-
-        modal.addEventListener('click', (e) => {
-            // Fecha se clicar no fundo preto (mas não no conteúdo)
-            if (e.target === modal || e.target.classList.contains('flex-col')) closeModal();
+            if(modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal || e.target.classList.contains('flex-col')) closeModal();
+                });
+            }
         });
     </script>
 </body>
