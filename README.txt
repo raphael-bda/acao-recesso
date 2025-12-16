@@ -8,7 +8,7 @@
 
 ## 🖼️ Preview do Projeto
 
-![Preview da Landing Page](./assets/img/preview-site.png)
+![Preview da Landing Page](https://imgur.com/a/THn05zm)
 
 ---
 
@@ -73,7 +73,6 @@ A interface adota uma estética **Dark Mode** com acentos em **Neon Brand Colors
     │   ├── reclame-aqui-2024.jpg
     │   ├── reclame-aqui-2025.jpg
     │   ├── poster-campanha.jpg
-    │   └── preview-site.png
     │
     └── video/
         └── video-campanha.mp4
