@@ -92,11 +92,8 @@
             margin: 0 auto;
             transform: translateZ(0);
         }
-        .smart-video-container video {
+        .smart-video-container video, .smart-video-container iframe {
             max-width: 100%;
-            max-height: 70vh; 
-            width: auto;
-            height: auto;
             display: block;
         }
         
@@ -141,6 +138,12 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #00bfa5; 
         }
+
+        /* Playlist Styles for Quem Somos */
+        .playlist-container {
+            max-height: 600px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body class="antialiased noise-bg">
@@ -163,6 +166,7 @@
                 <img src="assets/img/logo.png" alt="Logo IEFE" class="h-6 md:h-10 w-auto brightness-200 contrast-100 shrink-0" width="150" height="40">
                 
                 <div class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-widest text-gray-400">
+                    <a href="#quem-somos" class="hover:text-brand transition-colors duration-200 text-brand">Quem Somos</a>
                     <a href="#comparativo" class="hover:text-brand transition-colors duration-200">Nova Lei</a>
                     <a href="#cursos" class="hover:text-brand transition-colors duration-200">Cursos</a>
                     <a href="#seguranca" class="hover:text-brand transition-colors duration-200">Segurança</a>
@@ -177,6 +181,7 @@
         </div>
 
         <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-black/95 border-b border-white/10 p-4 flex-col gap-4 shadow-xl lg:hidden z-50">
+            <a href="#quem-somos" class="text-brand text-sm font-bold uppercase hover:text-white py-2 border-b border-white/5" onclick="toggleMenu()">Quem Somos</a>
             <a href="#comparativo" class="text-gray-300 text-sm font-bold uppercase hover:text-brand py-2 border-b border-white/5" onclick="toggleMenu()">Nova Lei vs Antiga</a>
             <a href="#cursos" class="text-gray-300 text-sm font-bold uppercase hover:text-brand py-2 border-b border-white/5" onclick="toggleMenu()">Nossos Cursos</a>
             <a href="#seguranca" class="text-gray-300 text-sm font-bold uppercase hover:text-brand py-2 border-b border-white/5" onclick="toggleMenu()">Segurança Jurídica</a>
@@ -260,7 +265,89 @@
         </div>
     </header>
 
-    <section id="comparativo" class="py-16 md:py-20 relative border-y border-white/10 bg-dark-surface">
+    <section id="quem-somos" class="py-16 bg-dark-surface border-y border-white/5 relative scroll-mt-20">
+        <div class="container mx-auto px-4 max-w-7xl relative z-10">
+            <div class="text-center mb-12">
+                <span class="text-brand font-bold tracking-[0.3em] uppercase text-xs">Nossa Essência</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white mt-2">Quem Somos</h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Conheça o Polo, nossa metodologia e a trilha de conhecimento que preparamos para você.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <div class="lg:col-span-7 flex flex-col gap-4">
+                    <div class="bg-black/20 p-2 rounded-xl border border-white/10 group flex justify-center">
+                        <video controls class="w-full h-auto max-h-[600px] object-contain mx-auto rounded-lg shadow-2xl" poster="assets/img/poster-polo.jpg">
+                            <source src="assets/video/apresentacao-polo.mp4" type="video/mp4">
+                            Seu navegador não suporta vídeos.
+                        </video>
+                    </div>
+                    <div class="text-left px-2">
+                        <h3 class="text-2xl font-bold text-white mb-2">Conheça Nosso Polo</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            Uma estrutura pensada para o seu desenvolvimento. Assista ao vídeo e veja onde sua transformação profissional vai acontecer. Somos mais que uma escola, somos parceiros da sua carreira.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="bg-dark-card border border-white/10 rounded-xl p-4 h-full flex flex-col max-h-[700px]">
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <span class="w-2 h-2 bg-brand rounded-full animate-pulse"></span>
+                            Trilha Pedagógica
+                        </h3>
+                        
+                        <div class="playlist-container custom-scrollbar pr-2 space-y-4 flex-grow">
+                            
+                            <div class="bg-black/40 p-3 rounded border border-white/5 hover:border-brand/30 transition">
+                                <p class="text-brand text-xs font-bold uppercase mb-2">Parte 1</p>
+                                <iframe src="https://drive.google.com/file/d/1wTqzrlHXzsXz63QO9XWbxPCIt4n5Iz1Y/preview" class="w-full aspect-video rounded" allow="autoplay"></iframe>
+                            </div>
+
+                            <div class="bg-black/40 p-3 rounded border border-white/5 hover:border-brand/30 transition">
+                                <p class="text-brand text-xs font-bold uppercase mb-2">Parte 2</p>
+                                <iframe src="https://drive.google.com/file/d/1HtsxTT2nNk-M9iPHeKV2_CJtWHySBAMT/preview" class="w-full aspect-video rounded" allow="autoplay"></iframe>
+                            </div>
+
+                            <div class="bg-black/40 p-3 rounded border border-white/5 hover:border-brand/30 transition">
+                                <p class="text-brand text-xs font-bold uppercase mb-2">Parte 3</p>
+                                <iframe src="https://drive.google.com/file/d/1Thbyc5W-aiGOKuheVWe0pqxle-XQY-4I/preview" class="w-full aspect-video rounded" allow="autoplay"></iframe>
+                            </div>
+
+                            <div class="bg-black/40 p-3 rounded border border-white/5 hover:border-brand/30 transition">
+                                <p class="text-brand text-xs font-bold uppercase mb-2">Parte 4</p>
+                                <iframe src="https://drive.google.com/file/d/1QRNLY91aXODhzPInBW6sleQKkLQUmtJX/preview" class="w-full aspect-video rounded" allow="autoplay"></iframe>
+                            </div>
+
+                            <div class="bg-black/40 p-3 rounded border border-white/5 hover:border-brand/30 transition">
+                                <p class="text-brand text-xs font-bold uppercase mb-2">Parte 5</p>
+                                <iframe src="https://drive.google.com/file/d/17XGTVeWryNrdoEtIQdBLAcCtuSiYnPtV/preview" class="w-full aspect-video rounded" allow="autoplay"></iframe>
+                            </div>
+
+                            <div class="bg-black/40 p-3 rounded border border-white/5 hover:border-brand/30 transition">
+                                <p class="text-brand text-xs font-bold uppercase mb-2">Parte 6</p>
+                                <iframe src="https://drive.google.com/file/d/1ti6qVJm-51VPs5NI6mklstgciD-2szmJ/preview" class="w-full aspect-video rounded" allow="autoplay"></iframe>
+                            </div>
+
+                            <div class="bg-black/40 p-3 rounded border border-white/5 hover:border-brand/30 transition">
+                                <p class="text-brand text-xs font-bold uppercase mb-2">Parte 7</p>
+                                <iframe src="https://drive.google.com/file/d/1qWji0PDoD6JbJEjQgUi-hhuyHv1r8VTv/preview" class="w-full aspect-video rounded" allow="autoplay"></iframe>
+                            </div>
+
+                            <div class="bg-black/40 p-3 rounded border border-white/5 hover:border-brand/30 transition">
+                                <p class="text-brand text-xs font-bold uppercase mb-2">Parte 8</p>
+                                <iframe src="https://drive.google.com/file/d/1GbqwCrl8qqYZfWzjGmiB6bz_sQGcTXsY/preview" class="w-full aspect-video rounded" allow="autoplay"></iframe>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="comparativo" class="py-16 md:py-20 relative border-y border-white/10 bg-dark-bg">
         <div class="absolute inset-0 warning-stripe opacity-5 pointer-events-none"></div>
         <div class="container mx-auto px-4 max-w-6xl relative z-10">
             <h2 class="text-3xl md:text-5xl font-black text-center mb-4 text-white">O Fim da <span class="text-danger line-through decoration-4">Facilidade</span></h2>
