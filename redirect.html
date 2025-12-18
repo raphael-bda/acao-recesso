@@ -89,10 +89,11 @@
             width: 100%;
             aspect-ratio: 16/9;
         }
-        .smart-video-container video {
+        /* Ajuste para garantir que o iframe ocupe todo o container */
+        .smart-video-container iframe {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            border: none;
         }
 
         /* Custom Scrollbar */
@@ -136,20 +137,23 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                 
-                <div class="lg:col-span-2 space-y-4">
+                <div class="lg:col-span-2 space-y-6">
                     <div class="flex items-center justify-between px-2">
                         <h2 class="text-xl font-bold text-white flex items-center gap-2">
                             <span class="text-brand">▶</span> Pré-Aula Exclusiva
                         </h2>
                         <span class="text-xs font-mono text-gray-500 border border-white/10 px-2 py-1 rounded">AULA_GRAVADA.mp4</span>
                     </div>
-                    
+
                     <div class="smart-video-container group relative tech-card border-0">
                         <div class="absolute -inset-1 bg-gradient-to-br from-brand via-transparent to-brand rounded-2xl opacity-10 group-hover:opacity-20 blur transition duration-500 -z-10"></div>
-                        <video controls preload="auto" class="rounded-lg shadow-2xl">
-                            <source src="assets/callback/aula-gravada.mp4" type="video/mp4">
-                            Seu navegador não suporta a reprodução de vídeos.
-                        </video>
+                        
+                        <iframe 
+                            src="https://drive.google.com/file/d/1-yGxVkxJ7NjoRKiBjng0YlHhlqC2pEsH/preview" 
+                            allow="autoplay"
+                            class="rounded-lg shadow-2xl"
+                            loading="lazy">
+                        </iframe>
                     </div>
                     
                     <p class="text-sm text-gray-400 pl-2 border-l-2 border-brand/30">
@@ -172,7 +176,7 @@
                                 Baixe o guia completo de Gestão Escolar. Leitura obrigatória para nivelamento da turma.
                             </p>
 
-                            <a href="assets/callback/e-bookge.pdf" download class="flex items-center justify-center gap-2 w-full bg-white/5 hover:bg-brand hover:text-black text-white border border-white/10 hover:border-brand font-bold py-3 px-4 rounded transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(0,191,165,0.3)]">
+                            <a href="assets/e-book/e-bookge.pdf" download class="flex items-center justify-center gap-2 w-full bg-white/5 hover:bg-brand hover:text-black text-white border border-white/10 hover:border-brand font-bold py-3 px-4 rounded transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(0,191,165,0.3)]">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 <span>DOWNLOAD PDF</span>
                             </a>
